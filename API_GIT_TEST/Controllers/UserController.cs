@@ -52,7 +52,6 @@ namespace API_GIT_TEST.Controllers
             return BadRequest();
         }
 
-
         [HttpPost]
         public ActionResult<User> Add(User user)
         {
@@ -68,16 +67,22 @@ namespace API_GIT_TEST.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> UpdateProfil(int id)
+        public ActionResult<User> UpdateProfil(User user, int id)
         {
 
             if (ModelState.IsValid)
             {
-                User? user = _userService.UpdateUser(id);
-                return user is not null ? Ok(user) : BadRequest();
+                User? userUpdate = _userService.UpdateUser(user, id);
+                return userUpdate is not null ? Ok(userUpdate) : BadRequest();
             }
 
             return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<bool> Delete(int id)
+        {
+            return _userService.Delete(id) ? Ok() : BadRequest();
         }
 
     }

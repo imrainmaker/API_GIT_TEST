@@ -17,7 +17,7 @@ namespace BLL.Interfaces
 
         public User? Add(User user);
 
-        public User? UpdateUser(int id);
+        public User? UpdateUser(User user, int id);
 
         public bool Delete(int id);
     }

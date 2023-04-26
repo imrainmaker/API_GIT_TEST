@@ -51,15 +51,48 @@ namespace DAL.Repositories
         }
          public User? Add(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.users.Add(user);
+                _context.SaveChanges();
+
+                return user;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
         public User? UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.users.Update(user);
+                _context.SaveChanges();
+
+                return user;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
         public bool Delete(User user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.users.Remove(user);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

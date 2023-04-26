@@ -36,15 +36,27 @@ namespace BLL.Services
         }
         public User? Add(User user)
         {
-            throw new NotImplementedException();
+            User? userAdd = _userRepository.Add(user);
+            return userAdd is not null ? userAdd : null;
         }
-        public User? UpdateUser(int id)
+        public User? UpdateUser(User user,int id)
         {
-            throw new NotImplementedException();
+            User? userUpdate = _userRepository.GetById(id);
+            if(userUpdate is not null)
+            {
+                userUpdate.Email = user.Email;
+                userUpdate.FirstName = user.FirstName;
+                userUpdate.LastName = user.LastName;
+                userUpdate.Password = user.Password;
+
+                _userRepository.UpdateUser(userUpdate);
+            }
+            return userUpdate is not null ? userUpdate : null;
         }
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            User? user = _userRepository.GetById(id);
+            return user is not null ? _userRepository.Delete(user) : false;
         }
     }
 }
