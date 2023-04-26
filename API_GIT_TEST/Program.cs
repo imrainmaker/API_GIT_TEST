@@ -1,4 +1,8 @@
+using BLL.Interfaces;
+using BLL.Services;
 using DAL.Context;
+using DAL.Interfaces;
+using DAL.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,10 @@ builder.Services.AddSwaggerGen();
 
 //DBContext
 builder.Services.AddDbContext<DataContext>();
+//DAL
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+//BLL
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
