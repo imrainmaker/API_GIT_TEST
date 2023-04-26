@@ -1,6 +1,9 @@
 ﻿using BLL.Interfaces;
 using DAL.Interfaces;
 using DAL.Models;
+using DAL.Models.DTO;
+using DAL.Models.Mapper;
+using DAL.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,28 +21,28 @@ namespace BLL.Services
             _userRepository = userRepository;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<UserVM> GetAll()
         {
 
-            return  _userRepository.GetAll();
+            return  _userRepository.GetAll().ToUserVMList();
 
         }
-        public User? GetById(int id)
+        public UserVM? GetById(int id)
         {
             User? user = _userRepository.GetById(id);
-            return user is not null ? user : null;
+            return user is not null ? user.ToUserVM() : null;
         }
-        public User? GetByEmail(string email)
+        public UserVM? GetByEmail(string email)
         {
             User? user = _userRepository.GetByEmail(email);
-            return user is not null ? user : null;
+            return user is not null ? user.ToUserVM() : null;
         }
-        public User? Add(User user)
+        public UserVM? Add(AddUserDTO user)
         {
-            User? userAdd = _userRepository.Add(user);
-            return userAdd is not null ? userAdd : null;
+            User? userAdd = _userRepository.Add(user.ToUser());
+            return userAdd is not null ? userAdd.ToUserVM() : null;
         }
-        public User? UpdateUser(User user,int id)
+        public UserVM? UpdateUser(UpdateUserDTO user,int id)
         {
             User? userUpdate = _userRepository.GetById(id);
             if(userUpdate is not null)
@@ -51,7 +54,7 @@ namespace BLL.Services
 
                 _userRepository.UpdateUser(userUpdate);
             }
-            return userUpdate is not null ? userUpdate : null;
+            return userUpdate is not null ? userUpdate.ToUserVM() : null;
         }
         public bool Delete(int id)
         {

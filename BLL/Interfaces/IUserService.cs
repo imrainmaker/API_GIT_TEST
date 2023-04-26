@@ -1,4 +1,6 @@
 ﻿using DAL.Models;
+using DAL.Models.DTO;
+using DAL.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +11,15 @@ namespace BLL.Interfaces
 {
     public interface IUserService
     {
-        public IEnumerable<User> GetAll();
+        public IEnumerable<UserVM> GetAll();
 
-        public User? GetById(int id);
+        public UserVM? GetById(int id);
 
-        public User? GetByEmail(string email);
+        public UserVM? GetByEmail(string email);
 
-        public User? Add(User user);
+        public UserVM? Add(AddUserDTO user);
 
-        public User? UpdateUser(User user, int id);
+        public UserVM? UpdateUser(UpdateUserDTO user, int id);
 
         public bool Delete(int id);
     }

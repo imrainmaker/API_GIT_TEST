@@ -1,5 +1,7 @@
 ﻿using BLL.Interfaces;
 using DAL.Models;
+using DAL.Models.DTO;
+using DAL.Models.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
@@ -22,18 +24,18 @@ namespace API_GIT_TEST.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAll()
+        public ActionResult<IEnumerable<UserVM>> GetAll()
         {
             return Ok(_userService.GetAll());
         }
 
 
         [HttpGet("{id:int}")]
-        public ActionResult<User> GetById(int id)
+        public ActionResult<UserVM> GetById(int id)
         {
             if (ModelState.IsValid)
             {
-                User? user = _userService.GetById(id);
+                UserVM? user = _userService.GetById(id);
                 return user is not null ? Ok(user) : BadRequest();
             }
 
@@ -41,11 +43,11 @@ namespace API_GIT_TEST.Controllers
         }
 
         [HttpGet("{email}")]
-        public ActionResult<User> GetByEmail(string email)
+        public ActionResult<UserVM> GetByEmail(string email)
         {
             if (ModelState.IsValid)
             {
-                User? user = _userService.GetByEmail(email);
+                UserVM? user = _userService.GetByEmail(email);
                 return user is not null ? Ok(user) : BadRequest();
             }
 
@@ -53,12 +55,12 @@ namespace API_GIT_TEST.Controllers
         }
 
         [HttpPost]
-        public ActionResult<User> Add(User user)
+        public ActionResult<UserVM> Add(AddUserDTO user)
         {
 
             if (ModelState.IsValid)
             {
-                User? userAdd = _userService.Add(user);
+                UserVM? userAdd = _userService.Add(user);
                 return userAdd is not null ? Ok(userAdd) : Problem();
             }
 
@@ -67,12 +69,12 @@ namespace API_GIT_TEST.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<User> UpdateProfil(User user, int id)
+        public ActionResult<UserVM> UpdateProfil(UpdateUserDTO user, int id)
         {
 
             if (ModelState.IsValid)
             {
-                User? userUpdate = _userService.UpdateUser(user, id);
+                UserVM? userUpdate = _userService.UpdateUser(user, id);
                 return userUpdate is not null ? Ok(userUpdate) : BadRequest();
             }
 
