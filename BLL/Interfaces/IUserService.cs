@@ -9,6 +9,16 @@ namespace BLL.Interfaces
 {
     public interface IUserService
     {
-        
+        public IEnumerable<User> GetAll();
+
+        public User? GetById(int id);
+
+        public User? GetByEmail(string email);
+
+        public User? Add(User user);
+
+        public User? UpdateUser(int id);
+
+        public bool Delete(int id);
     }
 }
