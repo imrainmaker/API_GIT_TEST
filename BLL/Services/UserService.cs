@@ -1,4 +1,5 @@
 ﻿using BLL.Interfaces;
+using DAL.Interfaces;
 using DAL.Models;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,28 @@ namespace BLL.Services
 {
     public class UserService : IUserService
     {
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+
+            return  _userRepository.GetAll();
+
         }
         public User? GetById(int id)
         {
-            throw new NotImplementedException();
+            User? user = _userRepository.GetById(id);
+            return user is not null ? user : null;
         }
         public User? GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            User? user = _userRepository.GetByEmail(email);
+            return user is not null ? user : null;
         }
         public User? Add(User user)
         {

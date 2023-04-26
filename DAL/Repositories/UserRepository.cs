@@ -1,5 +1,7 @@
-﻿using DAL.Interfaces;
+﻿using DAL.Context;
+using DAL.Interfaces;
 using DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +12,42 @@ namespace DAL.Repositories
 {
     public class UserRepository : IUserRepository
     {
+        private readonly DataContext _context;
 
-
+        public UserRepository(DataContext context)
+        {
+            _context = context;
+        }
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.users.ToList();
         }
         public User? GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                return  _context.users.Find(id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
         public User? GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                return _context.users.First(u => u.Email == email);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
          public User? Add(User user)
         {
